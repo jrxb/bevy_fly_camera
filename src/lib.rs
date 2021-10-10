@@ -15,13 +15,13 @@
 //! use bevy_fly_camera::{FlyCamera, FlyCameraPlugin};
 //!
 //! fn setup(commands: &mut Commands) {
-//!	  commands
+//!      commands
 //!     .spawn(Camera3dBundle::default())
 //!     .with(FlyCamera::default());
 //! }
 //!
 //! fn main() {
-//!	  App::build()
+//!      App::build()
 //!     .add_plugins(DefaultPlugins)
 //!     .add_startup_system(setup.system())
 //!     .add_plugin(FlyCameraPlugin)
@@ -43,7 +43,7 @@
 //! use bevy_fly_camera::{FlyCamera2d, FlyCameraPlugin};
 //! ```
 //! ```no_compile
-//!	commands
+//!    commands
 //!   .spawn(Camera2dBundle::default())
 //!   .with(FlyCamera2d::default());
 //! ```
@@ -64,11 +64,12 @@ pub use cam2d::FlyCamera2d;
 /// # Example
 /// ```no_compile
 /// fn setup(mut commands: Commands) {
-///	  commands
+///      commands
 ///     .spawn(Camera3dBundle::default())
 ///     .with(FlyCamera::default());
 /// }
-
+/// ```
+#[derive(Component)]
 pub struct FlyCamera {
 	/// The speed the FlyCamera accelerates at. Defaults to `1.0`
 	pub accel: f32,
@@ -126,8 +127,7 @@ fn forward_vector(rotation: &Quat) -> Vec3 {
 
 fn forward_walk_vector(rotation: &Quat) -> Vec3 {
 	let f = forward_vector(rotation);
-	let f_flattened = Vec3::new(f.x, 0.0, f.z).normalize();
-	f_flattened
+	Vec3::new(f.x, 0.0, f.z).normalize()
 }
 
 fn strafe_vector(rotation: &Quat) -> Vec3 {
@@ -225,21 +225,17 @@ fn mouse_motion_system(
 	}
 }
 
-/**
-Include this plugin to add the systems for the FlyCamera bundle.
-
-```no_compile
-fn main() {
-	App::build().add_plugin(FlyCameraPlugin);
-}
-```
-
-**/
-
+/// Include this plugin to add the systems for the FlyCamera bundle.
+///
+/// ```no_compile
+/// fn main() {
+///     App::build().add_plugin(FlyCameraPlugin);
+/// }
+/// ```
 pub struct FlyCameraPlugin;
 
 impl Plugin for FlyCameraPlugin {
-	fn build(&self, app: &mut AppBuilder) {
+	fn build(&self, app: &mut App) {
 		app
 			.add_system(camera_movement_system.system())
 			.add_system(camera_2d_movement_system.system())
