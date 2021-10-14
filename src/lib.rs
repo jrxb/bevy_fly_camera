@@ -21,7 +21,7 @@
 //! }
 //!
 //! fn main() {
-//!      App::build()
+//!      App::new()
 //!     .add_plugins(DefaultPlugins)
 //!     .add_startup_system(setup.system())
 //!     .add_plugin(FlyCameraPlugin)
@@ -229,7 +229,7 @@ fn mouse_motion_system(
 ///
 /// ```no_compile
 /// fn main() {
-///     App::build().add_plugin(FlyCameraPlugin);
+///     App::new().add_plugin(FlyCameraPlugin);
 /// }
 /// ```
 pub struct FlyCameraPlugin;
